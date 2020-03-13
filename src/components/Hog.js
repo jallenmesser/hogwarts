@@ -12,7 +12,7 @@ class Hog extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
       return (
         <div className="ui eight wide column pigTile" onClick={this.detailToggler}>
             <p>{this.props.name}</p>

@@ -16,13 +16,16 @@ class HogContainer extends React.Component  {
     renderHogs = () => {
     // this.state.filter ?
     //  this.props.hogs.filter(hog => hog.greased === true).map((hog, indx) => <Hog key={indx} {...hog}/> : this.props.hogs.map((hog, indx) => <Hog key={indx} {...hog}/>
-        let filteredHogs
+        console.log (this.props.hogs)
+        let hogs = [...this.props.hogs]
+        let filteredHogs 
         if (this.state.filter){
-            filteredHogs = this.props.hogs.filter(hog => hog.greased === true)
+            filteredHogs = hogs.filter(hog => hog.greased === true)
         } else {
-            filteredHogs = this.props.hogs
+            filteredHogs = hogs
         }
-        this.sortOption(filteredHogs)
+        // console.log(this.sortOption(filteredHogs))
+        return this.sortOption(filteredHogs)
     }
 
     sortState = (e) =>{
@@ -39,14 +42,16 @@ class HogContainer extends React.Component  {
         }
     }
 
-    sortOption = (hogs) =>{
-        console.log(hogs)
+    sortOption = (filteredHogs) =>{
+        let sortedHogs = filteredHogs 
         if (this.state.sort === "alphabetical"){
-            return hogs.sort(function(a,b){return a.name - b.name}).map((hog, indx) => <Hog key={indx} {...hog}/>)
+            // console.log(hogs.sort((a, b) => a.name.localeCompare(b.name)))
+            return sortedHogs.sort((a, b) => a.name.localeCompare(b.name)).map((hog, indx) => <Hog key={indx} {...hog}/>)
         }else if (this.state.sort === "weight"){
-            return hogs.sort(function(a,b){return a.weight - b.weight}).map((hog, indx) => <Hog key={indx} {...hog}/>)
-        }else{
-            return hogs.map((hog, indx) => <Hog key={indx} {...hog}/>)
+            return sortedHogs.sort(function(a,b){return a.weight - b.weight}).map((hog, indx) => <Hog key={indx} {...hog}/>)
+        }else {
+            return sortedHogs.map((hog, indx) =>  <Hog key={indx} {...hog}/>)
+            // return hogs.map((hog, indx) => console.log(hog))
         }
         
     }
